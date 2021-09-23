@@ -1,0 +1,56 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    /*padding-top: 40px;*/
+    /*padding-bottom: 40px;*/
+}
+
+.form-signin {
+    width: 100%;
+    padding: 35px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    margin: auto;
+    align-content: center;
+}
+
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="text"] {
+    margin-bottom: 15pt;
+    border-radius: 9px;
+    height: 40pt;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 20pt;
+    border-radius: 9px;
+    height: 40pt;
+
+}
+
+.form-container{
+    width: 50%;
+    border-radius: 10pt;
+
+}
+
+.button {
+    background-color: #31B410;
+    color: white;
+    margin-top: 15pt;
+    border-radius: 9pt;
+}
+
+.button:hover {
+    background-color: rgba(49,180,16, 0.85);
+    color: white;
+}

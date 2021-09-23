@@ -1,0 +1,61 @@
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+
+.bi {
+    vertical-align: -.125em;
+    pointer-events: none;
+    fill: currentColor;
+}
+
+.sidebar{
+    background-color: rgba(49, 180, 16, 0.8);
+}
+
+.sidebar a:hover, .sidebar button:hover{
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.sidebar a:active, .sidebar button:active{
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-link.active {
+     background-color: rgba(255, 255, 255, 0.4);
+     border-color: black;
+}
+
+.sidebar button{
+    background-color: transparent;
+    color: white ;
+}
+
+.items a:hover, .items button:hover{
+    background-color: rgba(90, 195, 64, 0.85);
+}
+
+.items a{
+   background-color:#5AC340;
+}
+
+.items thead{
+    background-color: #5AC340;
+}
+
+.edit a:hover, .edit button:hover{
+    color: rgba(255, 255, 255, 0.67);
+}
+
+.items button{
+    background-color: #5AC340;
+}
+
+
