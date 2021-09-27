@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\EmployeeController;
+
 
 
 /*
@@ -21,7 +24,7 @@ Route::get('/welcome', function () {
 });
 
 
-Route::get('/', function (){
+Route::get('/' , function (){
    return view('login.index');
 });
 
@@ -29,19 +32,32 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+Route::group(['middleware'=>['auth', 'checkUser:karyawan']], function (){
+    Route::get('/admin', function (){
+        return view('admin.home.index') ;
+    });
 
-Route::get('/admin', function (){
-    return view('home.admin.index') ;
-})->middleware(['auth','checkUser:karyawan']);
+    Route::resource('/admin/items', ItemController::class);
+});
 
-Route::get('/owner', function (){
-    return view('home.owner.index');
-})->middleware(['auth','checkUser:pemilik']);
 
-Route::resource('/admin/items', ItemController::class)->middleware(['auth','checkUser:karyawan']);
-Route::get('admin/items/checkCategory', [ItemController::class, 'checkCategory']);
+Route::group(['middleware'=>['auth', 'checkUser:pemilik']], function (){
+    Route::get('/pemilik', function (){
+        return view('pemilik.home.index');});
 
-//Route::get('owner/items', [ItemController::class, 'items']);
-//Route::get('admin/items/search', [ItemController::class, 'search']);
+    Route::get('pemilik/items', [ItemController::class, 'items']);
+    Route::get('pemilik/items/{id}', [ItemController::class, 'showPemilik']);
+    Route::get('pemilik/items/{id}/edit', [ItemController::class, 'editPemilik']);
+    Route::put('pemilik/items/{id}', [ItemController::class, 'updatePemilik']);
+    Route::delete('pemilik/items/{id}', [ItemController::class, 'delete']);
 
-Route::resource('/owner/items', ItemController::class)->middleware(['auth','checkUser:pemilik']);
+    Route::resource('/pemilik/karyawan', EmployeeController::class);
+
+    Route::get('pemilik/data_karyawan/{id}/edit', [KaryawanController::class, 'edit']);
+
+    Route::put('pemilik/data_karyawan/{id}', [KaryawanController::class, 'update']);
+
+    Route::delete('pemilik/data_karyawan/{id}', [KaryawanController::class, 'delete']);
+});
+
+

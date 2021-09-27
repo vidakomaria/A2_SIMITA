@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -16,18 +17,16 @@ class ItemController extends Controller
     public function index()
     {
 //        dd(request('search'));
-        if (auth()->user()->kategori_user = 'karyawan'){
-            return view('items.admin.index', [
-                'items' => Item::latest()->filter(request(['search']))->get()
-            ]);
-        }
+//        if (auth()->user()->role = 'karyawan'){
+//            return view('admin.items.index', [
+//                'items' => Item::latest()->filter(request(['search']))->get()
+//            ]);
+//        }
+        $items = Item::filter(request(['search']))->get();
 
-        if (auth()->user()->kategori_user = 'pemilik'){
-            return view('items.owner.index', [
-                'items' => Item::latest()->filter(request(['search']))->get()
+        return view('admin.items.index', [
+            'items' => $items->sortBy(['stok', 'asc'])
             ]);
-        }
-
 
     }
 
@@ -39,13 +38,18 @@ class ItemController extends Controller
     public function create()
     {
 
-        if (auth()->user()->kategori_user = 'karyawan') {
+//        if (auth()->user()->role = 'karyawan') {
+//
+//            return view('items.admin.create', [
+//                'categories'=>Category::all(),
+//                'items'=>Item::all()->sortBy(['idBarang', 'asc'])
+//            ]);
+//        }
 
-            return view('items.admin.create', [
-                'categories'=>Category::all(),
-                'items'=>Item::all()->sortBy(['idBarang', 'asc'])
-            ]);
-        }
+        return view('admin.items.create', [
+            'categories'=>Category::all(),
+//            'items'=>Item::all()->sortBy(['id_barang', 'asc'])
+        ]);
     }
 
     /**
@@ -56,20 +60,33 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+//        $item = Item::where('id_barang', $request->id_barang)->first();
+//        dd($item->stok);
 
-        $validatedData = $request->validate([
-            'idBarang' => 'required',
-            'hargaBeli' => 'required|min:2',
-            'hargaJual' => 'required|min:2',
-            'category_id' => 'required'
+        $rules = [
+            'id_barang' => 'required|unique:items',
+            'nama_barang' => 'required',
+            'harga_beli' => 'required',
+            'category_id' => 'required',
+            'stok' => 'required',
+        ];
+        $validatedData = $request->validate($rules);
+        $validatedData['harga_jual'] = 0;
 
-        ]);
+//        $data=[
+//            'nama_barang'   => $item->nama_barang,
+//            'category_id'   => $item->category_id,
+//            'stok'          => ($item->stok) + ($request->stok),
+//            'harga_beli'    => $item->harga_beli,
+//            'harga_jual'    => $item->harga_jual,
+//        ];
+
+//        Item::where('id_barang', $item->id_barang)
+//            ->update($data);
 
         Item::create($validatedData);
-        if (auth()->user()->kategori_user = 'karyawan'){
-            return redirect('/admin/items')->with('success','Data Barang Berhasil Ditambahkan');
-        }
 
+        return redirect('/admin/items')->with('success','Data Barang Berhasil Ditambahkan');
     }
 
     /**
@@ -80,11 +97,14 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        if (auth()->user()->kategori_user = 'karyawan'){
-            return view('items.admin.show', [
-                'item' => $item
-            ]);
-        }
+//        if (auth()->user()->kategori_user = 'karyawan'){
+//            return view('items.admin.show', [
+//                'item' => $item
+//            ]);
+//        }
+        return view('admin.items.show', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -95,14 +115,20 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        if (auth()->user()->kategori_user = 'karyawan'){
+//        dd($item->nama_barang);
+//        if (auth()->user()->kategori_user = 'karyawan'){
+//
+//            return view('/items.admin.edit', [
+//                'items' => $item::all(),
+//                'item' => $item,
+//                'categories' => Category::all()
+//            ]);
+//        }
 
-            return view('/items.admin.edit', [
-                'items' => $item::all(),
-                'item' => $item,
-                'categories' => Category::all()
-            ]);
-        }
+        return view('/admin.items.edit', [
+            'item' => $item,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -115,17 +141,29 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $rules = [
-            'idBarang' => 'required',
-            'hargaBeli' => 'required|min:2',
-            'hargaJual' => 'required|min:2',
-            'category_id' => 'required'
+            'id_barang'     => 'required',
+            'nama_barang'   => 'required',
+            'harga_beli'    => 'required|min:2',
+            'stok'          => 'required',
+            'category_id'   => 'required',
         ];
 
         $validatedData = $request->validate($rules);
+        $validatedData['stok'] = $item->stok + $request->stok;
+//        $data=[
+//            'nama_barang'   => $item->nama_barang,
+//            'category_id'   => $item->category_id,
+//            'stok'          => ($item->stok) + ($request->stok),
+//            'harga_beli'    => $item->harga_beli,
+//            'harga_jual'    => $item->harga_jual,
+//        ];
+
+//        Item::where('id_barang', $item->id_barang)
+//            ->update($data);
 
 //        $validatedData['user_id'] = auth()->user()->id;
 
-        Item::where('idBarang', $item->idBarang)
+        Item::where('id_barang', $item->id_barang)
             ->update($validatedData);
 
         return redirect('/admin/items')->with('success','Data Barang Berhasil Diubah');
@@ -139,7 +177,86 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
+        Item::destroy($item->id);
+
         return redirect('/admin/items')->with('success','Data Barang Berhasil Dihapus');
     }
+
+    public function items()
+    {
+//        if (auth()->user()->kategori_user = 'pemilik'){
+//            return view('items.owner.index', [
+//                'items' => Item::latest()->filter(request(['search']))->get()
+//            ]);
+//        }
+
+        return view('pemilik.items.index', [
+            'items' => Item::latest()->filter(request(['search']))->get()
+        ]);
+    }
+
+    public function checkCategory(Request $request)
+    {
+//        dd($request);
+//        $id = $request->id_barang;
+        $kategori = Category::where('category_id', $request->id_barang)->get();
+        $pesan = 'berhasil';
+
+        return response()->json(['category_id' => $pesan]);
+    }
+
+    public function showPemilik($id)
+    {
+        $item = Item::where('id_barang', $id)->first();
+//        return ($item->id_barang);
+        return view('pemilik.items.show', [
+            'item' => $item
+        ]);
+    }
+
+    public function editPemilik($id)
+    {
+        $item = Item::where('id_barang', $id)->first();
+//        return $item->nama_barang;
+
+        return view('/pemilik.items.edit', [
+            'item' => $item,
+            'categories' => Category::all()
+        ]);
+    }
+
+    public function updatePemilik(Request $request, Item $item)
+    {
+//        return $request;
+
+        $rules = [
+            'id_barang'     => 'required',
+            'nama_barang'   => 'required',
+            'harga_beli'    => 'required|min:2',
+            'harga_jual'    => 'required|min:2',
+            'stok'          => 'required',
+            'category_id'   => 'required',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+//        $validatedData['user_id'] = auth()->user()->id;
+
+        Item::where('id_barang', $request->id_barang)
+            ->update($validatedData);
+
+        return redirect('/pemilik/items')->with('success','Data Barang Berhasil Diubah');
+    }
+
+    public function delete($id)
+    {
+        $item = Item::where('id_barang', $id)->first();
+//        return $item->nama_barang;
+
+        Item::destroy($item->id);
+        return redirect('/pemilik/items')->with('success','Data Barang Berhasil Dihapus');
+    }
+
+
 
 }

@@ -19,32 +19,32 @@ class DatabaseSeeder extends Seeder
 //         \App\Models\User::factory(10)->create();
 
         User::create([
+            'nama'=>'Nama Karyawan',
             'username'=>'Admin',
             'password'=>bcrypt('admin123'),
-            'name'=>'Nama Karyawan',
-            'kategori_user'=>'karyawan',
-            'email'=>'karyawan@gmail.com'
+            'role'=>'karyawan',
+//            'email'=>'karyawan@gmail.com'
         ]);
 
         User::create([
-            'username'=>'Owner',
+            'nama'=>'Nama Pemilik UD Mitra Tani',
+            'username'=>'Pemilik',
             'password'=>bcrypt('owner123'),
-            'name'=>'Nama Pemilik',
-            'kategori_user'=>'pemilik',
-            'email'=>'pemilik@gmail.com'
+            'role'=>'pemilik',
+//            'email'=>'pemilik@gmail.com'
         ]);
 
 
         Item::factory(10)->create();
 
         Category::create([
-            'name' => 'Pupuk'
+            'nama_kategori' => 'Pupuk'
         ]);
         Category::create([
-            'name' => 'Benih'
+            'nama_kategori' => 'Benih'
         ]);
         Category::create([
-            'name' => 'Obat'
+            'nama_kategori' => 'Obat'
         ]);
     }
 }

@@ -22,11 +22,12 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'idBarang' =>$this->faker->randomNumber(5, true),
-            'namaBarang' =>$this->faker->word(2),
-            'hargaBeli' =>$this->faker->randomNumber(5, true),
-            'hargaJual' =>$this->faker->randomNumber(5, true),
-            'category_id' =>mt_rand(1,3)
+            'id_barang'     => $this->faker->randomNumber(5, true),
+            'nama_barang'   =>$this->faker->word(2),
+            'harga_beli'    =>$this->faker->randomNumber(5, true),
+            'harga_jual'    =>$this->faker->randomNumber(5, true),
+            'stok'          => $this->faker->randomNumber(2),
+            'category_id'   => mt_rand(1,3),
         ];
     }
 }

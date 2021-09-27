@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,10 +10,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index', [
-           'title' => 'Login',
-            'active' => 'login'
-        ]);
+        return view('login.index');
     }
 
     public function authenticate(Request $request)
@@ -20,17 +18,16 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'username' => 'required',
             'password'=> 'required'
-
         ]);
 
-        if(Auth::attempt(['username'=>$credentials['username'], 'password'=>$credentials['password'], 'kategori_user'=>'karyawan'])){
+        if(Auth::attempt(['username'=>$credentials['username'], 'password'=>$credentials['password'], 'role'=>'karyawan'])){
             $request->session()->regenerate();
             return redirect()->intended('admin');
         }
 
-        elseif (Auth::attempt(['username'=>$credentials['username'], 'password'=>$credentials['password'], 'kategori_user'=>'pemilik'])){
+        elseif (Auth::attempt(['username'=>$credentials['username'], 'password'=>$credentials['password'], 'role'=>'pemilik'])){
             $request->session()->regenerate();
-            return redirect()->intended('owner');
+            return redirect()->intended('pemilik');
         }
 
         return back()->with('loginError', 'Username/Password Salah');
@@ -44,6 +41,7 @@ class LoginController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
+
 }

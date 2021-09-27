@@ -14,9 +14,9 @@ class CheckUser
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$kategori)
+    public function handle(Request $request, Closure $next, ...$role)
     {
-        if (in_array($request->user()->kategori_user,$kategori)){
+        if (in_array($request->user()->role, $role)){
             return $next($request);
         }
         return redirect('/');

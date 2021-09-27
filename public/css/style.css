@@ -7,16 +7,23 @@ main {
     overflow-x: auto;
     overflow-y: auto;
 }
+.sidebar{
+    background-color: rgba(49, 180, 16, 0.8);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100%;
+}
+
+.sidebar img{
+    width: 130px;
+    /*align-content: center;*/
+}
 
 
 .bi {
     vertical-align: -.125em;
     pointer-events: none;
     fill: currentColor;
-}
-
-.sidebar{
-    background-color: rgba(49, 180, 16, 0.8);
 }
 
 .sidebar a:hover, .sidebar button:hover{
