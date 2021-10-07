@@ -5,22 +5,11 @@
         <h1 class="mb-3 border-bottom pb-3">Data Barang</h1>
 
         <div class="col-lg-8">
-            <form method="post" action="/admin/items" class="mb-5">
+            <form method="post" action="/admin/barang" class="mb-5">
                 @csrf
                 <div class="mb-2">
                     <label for="id_barang" class="form-label">ID Barang</label>
                     <input type="number" class="form-control @error('id_barang') is-invalid @enderror" id="id_barang" name="id_barang" value="{{ old('id_barang') }}">
-
-{{--                    <select class="form-select  @error('id_barang') is-invalid @enderror" id="id_barang" name="id_barang">--}}
-{{--                        <option value="">Pilih ID Barang</option>--}}
-{{--                        @foreach($items as $item)--}}
-{{--                            @if(old('id_barang') == $item->id_barang)--}}
-{{--                                <option value="{{ $item->id_barang }}" selected>{{ $item->id_barang }}</option>--}}
-{{--                            @else--}}
-{{--                                <option value="{{ $item->id_barang }}">{{ $item->id_barang }}</option>--}}
-{{--                            @endif--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
 
                     @error('id_barang')
                         <div class="invalid-feedback">
@@ -64,21 +53,21 @@
                 </div>
 
                 <div class="mb-2">
-                    <label for="category_id" class="form-label">Kategori</label>
+                    <label for="id_kategori" class="form-label">Kategori</label>
 {{--                    <input type="number" class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required value="{{ old('category_id') }}">--}}
 
-                    <select class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+                    <select class="form-select @error('id_kategori') is-invalid @enderror" name="id_kategori">
                         <option value="">Pilih Jenis Barang</option>
-                        @foreach($categories as $category)
-                            @if(old('category_id') == $category->id)
-                                <option value="{{ $category->id }}" selected>{{ $category->nama_kategori }}</option>
+                        @foreach($categories as $kategori)
+                            @if(old('id_kategori') == $kategori->id_kategori)
+                                <option value="{{ $kategori->id_kategori }}" selected>{{ $kategori->nama_kategori }}</option>
                             @else
-                                <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
+                                <option value="{{ $kategori->id_kategori }}">{{ $kategori->nama_kategori }}</option>
                             @endif
                         @endforeach
                     </select>
 
-                    @error('category_id')
+                    @error('id_kategori')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -98,38 +87,9 @@
 
                 <button type="submit" class="btn text-white ">Simpan</button>
 
-
             </form>
 
         </div>
     </div>
-
-
-    <script>
-        function autofill() {
-            // const id = document.querySelector('#id_barang').value
-            // const kategori = document.querySelector('#category_id');
-            // alert(id)
-            //
-            // kategori.value=id
-
-        }
-
-        const id_barang = document.querySelector('#id_barang');
-        const category_id = document.querySelector('#category_id');
-
-        id_barang.addEventListener('change', function () {
-            // fetch('/admin/items/checkCategory?id_barang=' +id_barang.value )
-            //     .then(response => response.json())
-            //     .then(data => category_id.value = data.category_id)
-
-            category_id.value = id_barang.value
-
-        });
-
-
-
-    </script>
-
 
 @endsection

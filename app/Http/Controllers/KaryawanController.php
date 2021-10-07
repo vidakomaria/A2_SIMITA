@@ -7,6 +7,35 @@ use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
 {
+    public function index()
+    {
+        return view('pemilik.karyawan.index', [
+            'employees' => User::where('role', 'karyawan')->get()
+        ]);
+    }
+
+    public function create()
+    {
+        return view('pemilik.karyawan.create');
+    }
+
+    public function store(Request $request)
+    {
+        $rules=[
+            'nama'      => 'required',
+            'username'  => 'required|unique:users',
+            'password'  => 'required|min:5',
+        ];
+
+        $validatedData = $request->validate($rules);
+        $validatedData['role'] = 'karyawan';
+        $validatedData['password'] = bcrypt($request->password);
+
+        User::create($validatedData);
+
+        return redirect('/pemilik/karyawan')->with('success', 'Data Karyawan berhasil ditambah');
+    }
+
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
@@ -20,17 +49,24 @@ class KaryawanController extends Controller
 
     public function update(Request $request, User $user)
     {
-//        return $request;
+        $user = User::where('id', $request->id)->first();
 
         $rules = [
             'nama'     => 'required',
-            'username'   => 'required',
             'password'    => 'required|min:2',
         ];
+//        if ( $user->username !== $request->username){
+//            return 'user = ' . $user->username . 'request = ' . $request->username;
+//        }
+//        else {
+//            return 'sama';
+//        }
+
+        if ( $request->username != $user->username){
+            $rules['username'] = 'required|unique:users';
+        }
 
         $validatedData = $request->validate($rules);
-
-//        $validatedData['user_id'] = auth()->user()->id;
 
         User::where('id', $request->id)->update($validatedData);
 

@@ -12,9 +12,8 @@
         @endif
 
         <div class="col-lg-8">
-            <form method="post" action="/pemilik/karyawan" class="mb-5">
+            <form method="GET" action="/pemilik/karyawan/store" class="mb-5">
                 @csrf
-
                 <div class="mb-2">
                     <label for="nama" class="form-label">Nama Lengkap</label>
                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">

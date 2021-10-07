@@ -54,3 +54,10 @@ body {
     background-color: rgba(49,180,16, 0.85);
     color: white;
 }
+
+.container-nota{
+    width: 487px;
+    /*margin: 2rem;*/
+    padding: 1rem;
+}
+

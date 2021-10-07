@@ -5,28 +5,15 @@
         <h1 class="mb-3 border-bottom pb-3">Mengubah Data Barang</h1>
 
         <div class="col-lg-8">
-            <form method="post" action="/pemilik/items/{{ $item->id_barang }}" class="mb-5">
+            <form method="post" action="/pemilik/barang/{{ $item->id_barang }}" class="mb-5">
                 @method('put')
                 @csrf
                 <div class="mb-3">
                     <label for="id_barang" class="form-label">ID Barang</label>
-                    <select class="form-select  @error('id_barang') is-invalid @enderror" id="id_barang" name="id_barang">
-                        <option value="">ID Barang</option>
+                    <select class="form-select  @error('id_barang') is-invalid @enderror" id="id_barang" name="id_barang" disabled>
                         <option value="{{ $item->id_barang }}" selected>{{ $item->id_barang }}</option>
-{{--                        @foreach($items as $item)--}}
-{{--                            @if(old('id_barang', $item->id_barang) == $item->id_barang)--}}
-{{--                                <option value="{{ $item->id_barang }}" selected>{{ $item->id_barang }}</option>--}}
-{{--                            @else--}}
-{{--                                <option value="{{ $item->id_barang }}">{{ $item->id_barang }}</option>--}}
-{{--                            @endif--}}
-{{--                        @endforeach--}}
                     </select>
 
-                    @error('id_barang')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -65,7 +52,7 @@
 
                 <div class="mb-3">
                     <label for="stok" class="form-label">Stok</label>
-                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" required value="{{ old('stok', $item->stok) }}">
+                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" required value="{{ old('stok') }}" placeholder="{{ $item->stok }}">
 
                     @error('stok')
                     <div class="invalid-feedback">
@@ -75,19 +62,19 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="category_id" class="form-label">Jenis Barang</label>
-                    <select class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+                    <label for="id_kategori" class="form-label">Jenis Barang</label>
+                    <select class="form-select @error('id_kategori') is-invalid @enderror" name="id_kategori">
                         <option value="">Pilih Jenis Barang</option>
                         @foreach($categories as $category)
-                            @if(old('category_id', $category->id) == $category->id)
-                                <option value="{{ $category->id }}" selected>{{ $category->nama_kategori }}</option>
+                            @if(old('id_kategori', $category->id_kategori) == $item->id_kategori)
+                                <option value="{{ $category->id_kategori }}" selected >{{ $category->nama_kategori }}</option>
                             @else
-                                <option value="{{ $category->id }}">{{ $category->nama_kategori }}</option>
+                                <option value="{{ $category->id_kategori }}">{{ $category->nama_kategori }}</option>
                             @endif
                         @endforeach
                     </select>
 
-                    @error('category_id')
+                    @error('id_kategori')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

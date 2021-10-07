@@ -11,7 +11,7 @@
                     <i class="bi bi-house-door"></i>  Home</a>
             </li>
 
-            <li class="nav-item"><a  href="/pemilik/items" class=" nav-link text-white {{ Request::is('pemilik/items*') ? 'active' : '' }}">
+            <li class="nav-item"><a  href="/pemilik/barang" class=" nav-link text-white {{ Request::is('pemilik/barang*') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>  Data Barang</a>
             </li>
 

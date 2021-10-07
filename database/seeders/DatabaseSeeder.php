@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\Barang;
+use App\Models\Kategori;
 use App\Models\User;
-use App\Models\Item;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,16 +35,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        Item::factory(10)->create();
 
-        Category::create([
+        Kategori::create([
             'nama_kategori' => 'Pupuk'
         ]);
-        Category::create([
+        Kategori::create([
             'nama_kategori' => 'Benih'
         ]);
-        Category::create([
+        Kategori::create([
             'nama_kategori' => 'Obat'
         ]);
+
+        Barang::factory(10)->create();
     }
 }

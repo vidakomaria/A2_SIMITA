@@ -28,17 +28,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($employees as $karyawan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-{{--                        <td>{{ $employee->id }}</td>--}}
-                        <td>{{ $employee->nama }}</td>
-                        <td>{{ $employee->username }}</td>
-                        <td>{{ $employee->password }}</td>
+                        <td>{{ $karyawan->nama }}</td>
+                        <td>{{ $karyawan->username }}</td>
+                        <td>{{ $karyawan->password }}</td>
                         <td class="text-center edit">
-                            <a href="/pemilik/data_karyawan/{{ $employee->id }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i> Ubah</a>
+                            <a href="/pemilik/karyawan/{{ $karyawan->id }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i> Ubah</a>
 
-                            <form action="/pemilik/data_karyawan/{{ $employee->id }}"  method="post" class="d-inline">
+                            <form action="/pemilik/karyawan/{{ $karyawan->id }}"  method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <button class="badge bg-danger border-0" onclick="return confirm('Yakin menghapus data?')">

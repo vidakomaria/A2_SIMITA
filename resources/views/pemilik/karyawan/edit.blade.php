@@ -12,12 +12,12 @@
         @endif
 
         <div class="col-lg-8">
-            <form method="post" action="/pemilik/data_karyawan/{{ $user->id }}" class="mb-5">
+            <form method="post" action="/pemilik/karyawan/{{ $user->id }}" class="mb-5">
                 @method('put')
                 @csrf
                 <div class="mb-2">
                     <label for="nama" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ $user->nama, old('nama') }}">
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama', $user->nama) }}">
 
                     @error('nama')
                     <div class="invalid-feedback">

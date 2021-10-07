@@ -13,11 +13,11 @@
                 <a href="/admin" class="nav-link text-white {{ Request::is('admin') ? 'active' : '' }}" aria-current="page">
                     <i class="bi bi-house-door"></i>  Home</a>
             </li>
-            <li class="nav-item"><a  href="/admin/items" class=" nav-link text-white {{ Request::is('admin/items*') ? 'active' : '' }}">
+            <li class="nav-item"><a  href="/admin/barang" class=" nav-link text-white {{ Request::is('admin/items*') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i>  Data Barang</a>
             </li>
 
-            <li class="nav-item"><a href="#" class="nav-link text-white {{ Request::is('admin/penjualan*') ? 'active' : '' }}">
+            <li class="nav-item"><a href="/admin/penjualan" target="_blank" class="nav-link text-white {{ Request::is('admin/penjualan*') ? 'active' : '' }}">
                     <i class="bi bi-folder2"></i>  Data Penjualan</a>
             </li>
 

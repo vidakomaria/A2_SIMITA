@@ -73,6 +73,7 @@ class ItemController extends Controller
         $validatedData = $request->validate($rules);
         $validatedData['harga_jual'] = 0;
 
+
 //        $data=[
 //            'nama_barang'   => $item->nama_barang,
 //            'category_id'   => $item->category_id,

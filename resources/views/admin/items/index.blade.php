@@ -12,10 +12,10 @@
 
         <div class="row g-3">
             <div class="col">
-                <a href="/admin/items/create" class="btn text-white" ><i class="bi bi-plus-lg"></i>  Tambah Data Baru</a>
+                <a href="/admin/barang/create" class="btn text-white" ><i class="bi bi-plus-lg"></i>  Tambah Data Baru</a>
             </div>
             <div class="col">
-                <form action="/admin/items" >
+                <form action="/admin/barang" >
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Pencarian" name="search" value="{{ request('search') }}">
                         <button class="btn btn-outline-secondary text-white" type="submit" ><i class="bi bi-search"></i></button>
@@ -31,35 +31,34 @@
 {{--                <th scope="col">No</th>--}}
                 <th scope="col">ID Barang</th>
                 <th scope="col">Nama Barang</th>
-{{--                <th scope="col">Harga Beli</th>--}}
-{{--                <th scope="col">Harga Jual</th>--}}
-{{--                <th scope="col">Laba</th>--}}
+                <th scope="col">Harga Beli</th>
+                <th scope="col">Harga Jual</th>
                 <th scope="col">Kategori</th>
-{{--                <th scope="col">Tanggal Expired</th>--}}
-                <th scope="col">Jumlah Stok</th>
+                <th scope="col">Stok</th>
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($items as $item)
+            @foreach($barang as $item)
                 <tr>
 {{--                    <td>{{ $loop->iteration }}</td>--}}
                     <td>{{ $item->id_barang }}</td>
                     <td>{{ $item->nama_barang }}</td>
-{{--                    <td>Rp. {{ $item->hargaBeli }}</td>--}}
-{{--                    <td>Rp. {{ $item->hargaJual }}</td>--}}
-{{--                    <td>Rp. {{ ($item->hargaJual)-($item->hargaBeli) }}</td>--}}
-                    <td>{{ $item->category->nama_kategori }}</td>
-                    {{--                    <td>Tanggal Expired</td>--}}
-                    <td>{{ $item->stok }}</td>
+                    <td>Rp. {{ number_format($item->harga_beli) }}</td>
+                    <td>Rp. {{ number_format($item->harga_jual) }}</td>
+                    <td>{{ $item->kategori->nama_kategori }}</td>
+                    <td class="text-center">{{ $item->stok }}</td>
                     <td class="text-center edit">
-                        <a href="/admin/items/{{ $item->id_barang }}" class="badge bg-info text-decoration-none"><i class="bi bi-eye"></i> Lihat</a>
-                        <a href="/admin/items/{{ $item->id_barang }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i> Ubah</a>
+{{--                        <a href="/admin/barang/{{ $item->id_barang }}" class="badge bg-info text-decoration-none"><i class="bi bi-eye"></i> Lihat</a>--}}
+                        <a href="/admin/barang/{{ $item->id_barang }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i> Ubah</a>
 
-                        <form action="/admin/items/{{ $item->id_barang }}" method="post" class="d-inline">
+                        <form action="/admin/barang/{{ $item->id_barang }}" method="post" class="d-inline">
                             @method('delete')
                             @csrf
-                            <button class="badge bg-danger border-0" onclick="return confirm('Yakin menghapus data?')">
+{{--                            <button class="badge bg-danger border-0">--}}
+{{--                                <i class="bi bi-x-circle"></i> Hapus--}}
+{{--                            </button>--}}
+                            <button class="badge bg-danger border-0" onclick="return confirm('Yakin ingin menghapus data?')">
                                 <i class="bi bi-x-circle"></i> Hapus
                             </button>
                         </form>
@@ -67,7 +66,7 @@
             </tr>
             @endforeach
             </tbody>
-        </table>
+            </table>
         </div>
     </div>
 

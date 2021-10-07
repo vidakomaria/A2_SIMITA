@@ -11,11 +11,11 @@
         @endif
 
         <div class="row g-3">
-{{--            <div class="col">--}}
-{{--                <a href="/owner/items/create" class="btn text-white" ><i class="bi bi-plus-lg"></i>  Tambah Data Baru</a>--}}
-{{--            </div>--}}
             <div class="col">
-                <form action="/pemilik/items" >
+{{--                <a href="/owner/items/create" class="btn text-white" ><i class="bi bi-plus-lg"></i>  Tambah Data Baru</a>--}}
+            </div>
+            <div class="col">
+                <form action="/pemilik/barang" >
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Pencarian" name="search" value="{{ request('search') }}">
                         <button class="btn btn-outline-secondary text-white" type="submit" ><i class="bi bi-search"></i></button>
@@ -28,33 +28,27 @@
             <table class="table table-striped table-sm table-bordered">
                 <thead class="text-white text-center">
                 <tr>
-                    {{--                <th scope="col">No</th>--}}
                     <th scope="col">ID Barang</th>
                     <th scope="col">Nama Barang</th>
-{{--                    <th scope="col">Harga Beli</th>--}}
-{{--                    <th scope="col">Harga Jual</th>--}}
-{{--                    <th scope="col">Laba</th>--}}
+                    <th scope="col">Harga Beli</th>
+                    <th scope="col">Harga Jual</th>
                     <th scope="col">Kategori</th>
-                    {{--                <th scope="col">Tanggal Expired</th>--}}
-                    <th scope="col">Jumlah Stok</th>
+                    <th scope="col">Stok</th>
                     <th scope="col">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($items as $item)
+                @foreach($barang as $barang)
                     <tr>
-                        {{--                    <td>{{ $loop->iteration }}</td>--}}
-                        <td>{{ $item->id_barang }}</td>
-                        <td>{{ $item->nama_barang }}</td>
-{{--                        <td>Rp. {{ $item->hargaBeli }}</td>--}}
-{{--                        <td>Rp. {{ $item->hargaJual }}</td>--}}
-{{--                        <td>Rp. {{ ($item->hargaJual)-($item->hargaBeli) }}</td>--}}
-                        <td>{{ $item->category->nama_kategori }}</td>
-                        {{--                    <td>Tanggal Expired</td>--}}
-                        <td>{{ $item->stok }}</td>
+                        <td>{{ $barang->id_barang }}</td>
+                        <td>{{ $barang->nama_barang }}</td>
+                        <td>Rp. {{ number_format($barang->harga_beli) }}</td>
+                        <td>Rp. {{ number_format($barang->harga_jual) }}</td>
+                        <td>{{ $barang->kategori->nama_kategori }}</td>
+                        <td class="text-center">{{ $barang->stok }}</td>
                         <td class="text-center edit">
-                            <a href="/pemilik/items/{{ $item->id_barang }}" class="badge bg-info text-decoration-none"><i class="bi bi-eye"></i>Lihat</a>
-                            <a href="/pemilik/items/{{ $item->id_barang }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i>Ubah</a>
+                            {{--<a href="/pemilik/barang/{{ $barang->id_barang }}" class="badge bg-info text-decoration-none"><i class="bi bi-eye"></i>Lihat</a>--}}
+                            <a href="/pemilik/barang/{{ $barang->id_barang }}/edit" class="badge bg-warning text-decoration-none"><i class="bi bi-pencil-square"></i>Ubah</a>
 
 {{--                            <form action="/pemilik/items/{{ $item->id_barang }}" method="post" class="d-inline">--}}
 {{--                                @method('delete')--}}

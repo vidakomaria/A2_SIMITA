@@ -60,7 +60,7 @@ class EmployeeController extends Controller
      */
     public function show(User $user)
     {
-        return $user;
+        //
     }
 
     /**
@@ -71,14 +71,10 @@ class EmployeeController extends Controller
      */
     public function edit(User $user)
     {
-//        dd($user);
-        return $user;
-//        return view('/pemilik.karyawan.edit', [
-//            'user' => $user
-////            'user' => $user::where('id', $user->id)->first()
-//        ]);
-
-
+        dd($user);
+        return view ('/pemilik.karyawan.edit', [
+            'user' => $user
+        ]);
     }
 
     /**

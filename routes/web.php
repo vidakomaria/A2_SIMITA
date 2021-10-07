@@ -2,9 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ItemController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangPemilikController;
+
+//use App\Http\Controllers\ItemController;
 
 
 
@@ -37,7 +42,7 @@ Route::group(['middleware'=>['auth', 'checkUser:karyawan']], function (){
         return view('admin.home.index') ;
     });
 
-    Route::resource('/admin/items', ItemController::class);
+    Route::resource('/admin/barang', BarangController::class);
 });
 
 
@@ -45,19 +50,28 @@ Route::group(['middleware'=>['auth', 'checkUser:pemilik']], function (){
     Route::get('/pemilik', function (){
         return view('pemilik.home.index');});
 
-    Route::get('pemilik/items', [ItemController::class, 'items']);
-    Route::get('pemilik/items/{id}', [ItemController::class, 'showPemilik']);
-    Route::get('pemilik/items/{id}/edit', [ItemController::class, 'editPemilik']);
-    Route::put('pemilik/items/{id}', [ItemController::class, 'updatePemilik']);
-    Route::delete('pemilik/items/{id}', [ItemController::class, 'delete']);
+    Route::resource('/pemilik/barang', BarangPemilikController::class);
 
-    Route::resource('/pemilik/karyawan', EmployeeController::class);
+//    Route::resource('/pemilik/karyawan', EmployeeController::class);
 
-    Route::get('pemilik/data_karyawan/{id}/edit', [KaryawanController::class, 'edit']);
+    Route::get('pemilik/karyawan', [KaryawanController::class, 'index']);
 
-    Route::put('pemilik/data_karyawan/{id}', [KaryawanController::class, 'update']);
+    Route::get('pemilik/karyawan/create', [KaryawanController::class, 'create']);
+    Route::get('pemilik/karyawan/store', [KaryawanController::class, 'store']);
 
-    Route::delete('pemilik/data_karyawan/{id}', [KaryawanController::class, 'delete']);
+    Route::get('pemilik/karyawan/{id}/edit', [KaryawanController::class, 'edit']);
+    Route::put('pemilik/karyawan/{id}', [KaryawanController::class, 'update']);
+
+    Route::delete('pemilik/karyawan/{id}', [KaryawanController::class, 'delete']);
 });
 
+Route::get('admin/penjualan', [PenjualanController::class, 'index']);
+Route::get('admin/transaksi', [TransaksiController::class, 'index']);
+Route::get('admin/penjualan/nota/{id_penjualan}', [PenjualanController::class, 'nota']);
+
+//Route::get('/readPenjualan', function (){
+//   $penjualan = \App\Models\Penjualan::find(1);
+//
+//   dd($penjualan->penjualan());
+//});
 

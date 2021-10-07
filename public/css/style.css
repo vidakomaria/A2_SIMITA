@@ -65,4 +65,74 @@ main {
     background-color: #5AC340;
 }
 
+.total_penjualan {
+    background-color: rgba(131, 195, 223, 0.5);
+    height: 51px;
+    align-items: center;
+}
+
+.penjualan input{
+    height: 34px;
+    width: 169px;
+}
+
+.btn-save {
+    width: 100pt;
+    background-color: #1096B4;
+}
+.btn-save:hover {
+    width: 100pt;
+    background-color: rgba(16, 150, 180, 0.9);
+}
+
+.modal-content {
+    align-items: center;
+    width: 571px;
+    height: 205px;
+}
+
+.modal-footer{
+    border: none;
+}
+
+.modal-body{
+    padding-top: 3rem;
+}
+
+.btn-orange{
+    color: white;
+    background-color: #FFB300;
+    width: 150px;
+    height: 40px;
+}
+
+.btn-green-cetak{
+    color: white;
+    background-color: #31B410;
+    width: 150px;
+    height: 40px;
+}
+
+.btn-green-cetak:hover, .btn-orange:hover{
+    color: rgba(255, 255, 255, 0.67);
+}
+
+.table-striped thead{
+    background-color: #5AC340;
+}
+
+.delete-text{
+    color: red;
+    background-color: transparent;
+    border: none;
+}
+
+.delete-text:hover{
+    color: rgba(255, 0, 0, 0.65);
+}
+
+
+
+
+
 
