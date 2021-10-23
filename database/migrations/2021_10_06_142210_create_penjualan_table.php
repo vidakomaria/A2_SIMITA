@@ -16,9 +16,9 @@ class CreatePenjualanTable extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id('id_penjualan');
             $table->timestamp('tgl');
-//            $table->foreignId('id_kasir')->constrained('users');
-            $table->integer('id_kasir');
-            $table->string('nama_kasir');
+            $table->foreignId('id_kasir')->constrained('users','id');
+//            $table->integer('id_kasir');
+//            $table->string('nama_kasir');
             $table->integer('grand_total');
             $table->integer('pembayaran');
             $table->integer('kembalian');

@@ -13,26 +13,34 @@ class Barang extends Model
     protected $primaryKey='id_barang';
 
     protected $guarded =[];
+//    protected $fillable = [
+//        'id_barang',
+//        'nama_barang',
+//        'harga_jual',
+//        'harga_beli',
+//        'stok',
+//        'id_kategori'
+//    ];
 
-    public function  scopeFilter($query, array $filters)
-    {
-
-//        if(request('search')){
-//            return $query->where('id_barang', 'like', '%' . request('search') . '%');
-//        }
-
-        $query->when($filters['search'] ?? false, function($query, $search) {
-//            $query->sortBy(['id_barang', 'asc']);
-            return $query->where('id_barang', 'like', '%' . $search . '%')
-                ->orWhere('nama_barang', 'like', '%' . $search . '%');
-        });
-
+//    public function  scopeFilter($query, array $filters)
+//    {
+//
+////        if(request('search')){
+////            return $query->where('id_barang', 'like', '%' . request('search') . '%');
+////        }
+//
 //        $query->when($filters['search'] ?? false, function($query, $search) {
-//            return $query->where('idBarang', 'like', '%' . $search . '%')
-//                ->orWhere('body', 'like', '%' . $search . '%');
+////            $query->sortBy(['id_barang', 'asc']);
+//            return $query->where('id_barang', 'like', '%' . $search . '%')
+//                ->orWhere('nama_barang', 'like', '%' . $search . '%');
 //        });
-    }
-
+//
+////        $query->when($filters['search'] ?? false, function($query, $search) {
+////            return $query->where('idBarang', 'like', '%' . $search . '%')
+////                ->orWhere('body', 'like', '%' . $search . '%');
+////        });
+//    }
+//
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');

@@ -21,13 +21,16 @@ class BarangFactory extends Factory
      */
     public function definition()
     {
+//        return [
+//            'id_barang'     => $this->faker->randomNumber(5, true),
+//            'nama_barang'   =>$this->faker->word(2),
+//            'harga_beli'    =>$this->faker->randomNumber(5, true),
+//            'harga_jual'    =>$this->faker->randomNumber(5, true),
+//            'stok'          => $this->faker->randomNumber(2),
+//            'id_kategori'   => mt_rand(1,3),
+//        ];
         return [
-            'id_barang'     => $this->faker->randomNumber(5, true),
-            'nama_barang'   =>$this->faker->word(2),
-            'harga_beli'    =>$this->faker->randomNumber(5, true),
-            'harga_jual'    =>$this->faker->randomNumber(5, true),
-            'stok'          => $this->faker->randomNumber(2),
-            'id_kategori'   => mt_rand(1,3),
-        ];
+            'id_barang'=> $this->faker->randomNumber(5, true),
+            ];
     }
 }

@@ -11,12 +11,11 @@
             <table class="table table-borderless">
                 <tr>
                     <td>Kasir</td>
-                    <td>: {{ $penjualan->nama_kasir }}</td>
+                    <td>: {{ $penjualan->karyawan->nama }}</td>
                 </tr>
                 <tr>
                     <td>Tanggal</td>
                     <td>: {{ date('d/m/Y H:i', strtotime($penjualan->tgl)) }}</td>
-                    {{--<td>: {{ \Carbon\Carbon::parse($penjualan->tgl)->format('d-m-Y H:i') }}</td>--}}
                 </tr>
             </table>
         </div>
@@ -28,7 +27,6 @@
                     <td class="text-center">Harga</td>
                     <td class="text-center">Total</td>
                 </tr>
-{{--                {{ dd($penjualan) }}--}}
                 @foreach(($penjualan->detailPenjualan) as $item )
                     <tr>
                         <td>{{ $item->barang->nama_barang }}</td>

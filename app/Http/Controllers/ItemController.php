@@ -24,7 +24,7 @@ class ItemController extends Controller
 //        }
         $items = Item::filter(request(['search']))->get();
 
-        return view('admin.items.index', [
+        return view('admin.barang.index', [
             'items' => $items->sortBy(['stok', 'asc'])
             ]);
 
@@ -46,7 +46,7 @@ class ItemController extends Controller
 //            ]);
 //        }
 
-        return view('admin.items.create', [
+        return view('admin.barang.create', [
             'categories'=>Category::all(),
 //            'items'=>Item::all()->sortBy(['id_barang', 'asc'])
         ]);
@@ -64,7 +64,7 @@ class ItemController extends Controller
 //        dd($item->stok);
 
         $rules = [
-            'id_barang' => 'required|unique:items',
+            'id_barang' => 'required|unique:',
             'nama_barang' => 'required',
             'harga_beli' => 'required',
             'category_id' => 'required',
@@ -103,7 +103,7 @@ class ItemController extends Controller
 //                'item' => $item
 //            ]);
 //        }
-        return view('admin.items.show', [
+        return view('admin.barang.show', [
             'item' => $item
         ]);
     }
@@ -126,7 +126,7 @@ class ItemController extends Controller
 //            ]);
 //        }
 
-        return view('/admin.items.edit', [
+        return view('/admin.barang.edit', [
             'item' => $item,
             'categories' => Category::all()
         ]);
@@ -180,7 +180,7 @@ class ItemController extends Controller
     {
         Item::destroy($item->id);
 
-        return redirect('/admin/items')->with('success','Data Barang Berhasil Dihapus');
+        return redirect('/admin/barang')->with('success','Data Barang Berhasil Dihapus');
     }
 
     public function items()
@@ -191,7 +191,7 @@ class ItemController extends Controller
 //            ]);
 //        }
 
-        return view('pemilik.items.index', [
+        return view('pemilik.barang.index', [
             'items' => Item::latest()->filter(request(['search']))->get()
         ]);
     }
@@ -210,7 +210,7 @@ class ItemController extends Controller
     {
         $item = Item::where('id_barang', $id)->first();
 //        return ($item->id_barang);
-        return view('pemilik.items.show', [
+        return view('pemilik.barang.show', [
             'item' => $item
         ]);
     }
@@ -220,7 +220,7 @@ class ItemController extends Controller
         $item = Item::where('id_barang', $id)->first();
 //        return $item->nama_barang;
 
-        return view('/pemilik.items.edit', [
+        return view('/pemilik.barang.edit', [
             'item' => $item,
             'categories' => Category::all()
         ]);
@@ -255,7 +255,7 @@ class ItemController extends Controller
 //        return $item->nama_barang;
 
         Item::destroy($item->id);
-        return redirect('/pemilik/items')->with('success','Data Barang Berhasil Dihapus');
+        return redirect('/pemilik/barang')->with('success','Data Barang Berhasil Dihapus');
     }
 
 

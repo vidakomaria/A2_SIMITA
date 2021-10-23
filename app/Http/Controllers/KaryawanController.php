@@ -24,7 +24,7 @@ class KaryawanController extends Controller
         $rules=[
             'nama'      => 'required',
             'username'  => 'required|unique:users',
-            'password'  => 'required|min:5',
+            'password'  => 'required',
         ];
 
         $validatedData = $request->validate($rules);
@@ -55,18 +55,13 @@ class KaryawanController extends Controller
             'nama'     => 'required',
             'password'    => 'required|min:2',
         ];
-//        if ( $user->username !== $request->username){
-//            return 'user = ' . $user->username . 'request = ' . $request->username;
-//        }
-//        else {
-//            return 'sama';
-//        }
 
         if ( $request->username != $user->username){
             $rules['username'] = 'required|unique:users';
         }
 
         $validatedData = $request->validate($rules);
+        $validatedData['password'] = bcrypt($request->password);
 
         User::where('id', $request->id)->update($validatedData);
 

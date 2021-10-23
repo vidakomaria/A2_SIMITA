@@ -15,9 +15,7 @@ class PenjualanIndex extends Component
     public $id_barang;
     public $quantity;
     public $bayar;
-
-//    protected $listeners = ['barangStored' => '$refresh'];
-
+    public $total;
 
     protected $rules = [
         'id_barang' => 'required|unique:transaksi',
@@ -57,28 +55,23 @@ class PenjualanIndex extends Component
 
     public function save()
     {
-        $total = Transaksi::get()->sum('sub_total');
-
-        $rule =[
-            'bayar'     =>'required',
-        ];
-
-        if ($this->bayar <= $total-1){
-            $this->addError('bayar', 'bayarnya kurang');
-//            $this->redirect('livewire.penjualan-index')->with('errors','salah nih');
-        }
-        else {
-            dd('lewat');
-        }
-
-        $this->validate($rule);
+        $this->total = Transaksi::get()->sum('sub_total');
 
         $transaksi = Transaksi::get();
+        $rules =[
+            'total'         => 'required',
+            'bayar'         =>'required|gte:total',
+        ];
+//        $this->addError('bayar', 'Bayar kurang');
+
+        $this->validate($rules);
 
         $penjualan = Penjualan::create([
             'tgl'           => Carbon::now(),
             'id_kasir'      => auth()->user()->id,
             'nama_kasir'    => auth()->user()->nama,
+//            'id_kasir'      => 1,
+//            'nama_kasir'    => 'test',
             'grand_total'   => $transaksi->sum('sub_total'),
             'pembayaran'    => $this->bayar,
             'kembalian'     => ($this->bayar)-($transaksi->sum('sub_total')),
@@ -100,6 +93,7 @@ class PenjualanIndex extends Component
             Barang::where('id_barang', $value->id_barang)
                 ->update(['stok' => $stok]);
         }
+        $this->clear();
         return $penjualan->id;
     }
 

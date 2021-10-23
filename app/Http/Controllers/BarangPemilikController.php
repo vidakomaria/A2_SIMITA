@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\BarangDijual;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BarangPemilikController extends Controller
 {
@@ -15,10 +17,10 @@ class BarangPemilikController extends Controller
      */
     public function index()
     {
-        $barang = Barang::filter(request(['search']))->get();
+        $barang = BarangDijual::filter(request(['search']))->get();
 //        $barang = Barang::all();
 
-        return view('pemilik.items.index', [
+        return view('pemilik.barang.index', [
             'barang' => $barang->sortBy(['stok', 'asc'])
 //                'barang' => $barang,
         ]);
@@ -64,7 +66,7 @@ class BarangPemilikController extends Controller
      */
     public function edit(Barang $barang)
     {
-        return view('/pemilik.items.edit', [
+        return view('/pemilik.barang.edit', [
             'item' => $barang,
             'categories' => Kategori::all()
         ]);
@@ -82,15 +84,27 @@ class BarangPemilikController extends Controller
         $rules = [
             'nama_barang'   => 'required',
             'harga_beli'    => 'required',
+            'harga_jual'    => 'required',
             'id_kategori'   => 'required',
         ];
 
         $validatedData              = $request->validate($rules);
         $validatedData['id_barang'] = $barang->id_barang;
-        $validatedData['stok']      = $barang->stok + $request->stok;
+//        $validatedData['stok']      = $barang->stok + $request->stok;
+        $validatedData['stok']      = $request->stok;
 
+        $rekap = [
+            'tgl'           => Carbon::now(),
+            'id_barang'     => $validatedData['id_barang'],
+            'barang_masuk'  => $request->stok,
+            'id_admin'      => auth()->user()->id,
+        ];
+
+        BarangDijual::where('id_barang', $barang->id_barang)
+            ->update($validatedData);
         Barang::where('id_barang', $barang->id_barang)
             ->update($validatedData);
+//        RekapBarang::create($rekap);
 
         return redirect('/pemilik/barang')->with('success','Data Barang Berhasil Diubah');
     }

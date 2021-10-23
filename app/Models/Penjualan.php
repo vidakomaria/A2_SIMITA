@@ -20,7 +20,7 @@ class Penjualan extends Model
 
     public function karyawan()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id_kasir','id');
     }
 
 }

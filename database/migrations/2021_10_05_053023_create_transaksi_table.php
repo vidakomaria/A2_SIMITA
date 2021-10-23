@@ -15,8 +15,8 @@ class CreateTransaksiTable extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-//            $table->foreignId('id_barang')->constrained('barang', 'id_barang');
-            $table->integer('id_barang');
+            $table->foreignId('id_barang')->constrained('barang', 'id_barang');
+//            $table->integer('id_barang');
             $table->integer('quantity');
             $table->integer('sub_total');
             $table->timestamps();

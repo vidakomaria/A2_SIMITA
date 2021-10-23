@@ -61,3 +61,7 @@ body {
     padding: 1rem;
 }
 
+.table-striped thead{
+    background-color: #5AC340;
+}
+

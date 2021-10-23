@@ -14,7 +14,7 @@ main {
     background-size: 100%;
 }
 
-.sidebar img{
+.logo{
     width: 130px;
     /*align-content: center;*/
 }
@@ -26,12 +26,12 @@ main {
     fill: currentColor;
 }
 
-.sidebar a:hover, .sidebar button:hover{
+.sidebar-btn, .sidebar a:hover, .sidebar-btn:hover{
     background-color: rgba(255, 255, 255, 0.08);
     color: white;
 }
 
-.sidebar a:active, .sidebar button:active{
+.sidebar a:active, .sidebar-btn:active{
     color: rgba(255, 255, 255, 0.3);
 }
 
@@ -40,12 +40,12 @@ main {
      border-color: black;
 }
 
-.sidebar button{
+.sidebar-btn{
     background-color: transparent;
     color: white ;
 }
 
-.items a:hover, .items button:hover{
+.items a:hover, .items button:hover, .btn-green-cetak:hover{
     background-color: rgba(90, 195, 64, 0.85);
 }
 
@@ -85,25 +85,15 @@ main {
     background-color: rgba(16, 150, 180, 0.9);
 }
 
-.modal-content {
-    align-items: center;
-    width: 571px;
-    height: 205px;
-}
-
-.modal-footer{
-    border: none;
-}
-
-.modal-body{
-    padding-top: 3rem;
-}
-
 .btn-orange{
     color: white;
     background-color: #FFB300;
     width: 150px;
     height: 40px;
+}
+
+.btn-orange:hover{
+    background-color: rgba(255, 179, 0, 0.87);
 }
 
 .btn-green-cetak{
@@ -131,8 +121,53 @@ main {
     color: rgba(255, 0, 0, 0.65);
 }
 
+.modal-content {
+    align-items: center;
+    width: 571px;
+    height: 205px;
+}
 
+.modal-footer{
+    border: none;
+}
 
+.modal-body{
+    padding-top: 3rem;
+}
+
+.modal-detail-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+    margin-top: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.flex-total{
+    background-image:linear-gradient(#83C3DF, transparent);
+    height: 45px;
+    color:#438AA9;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.btn-close-detail{
+    width: 100px;
+    background-image: linear-gradient(rgba(109, 109, 109, 0.75), rgba(213, 213, 213, 0.49));
+    border: none;
+}
+
+.btn-close-detail:hover{
+    background-image: linear-gradient(rgba(109, 109, 109, 0.58), rgba(213, 213, 213, 0.36));
+}
 
 
 

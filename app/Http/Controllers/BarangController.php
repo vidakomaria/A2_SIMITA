@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\RekapBarang;
+use App\Models\BarangDijual;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -15,10 +18,10 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::filter(request(['search']))->get();
+        $barang = BarangDijual::filter(request(['search']))->get();
 //        $barang = Barang::all();
 
-        return view('admin.items.index', [
+        return view('admin.barang.index', [
             'barang' => $barang->sortBy(['stok', 'asc'])
 //                'barang' => $barang,
         ]);
@@ -31,7 +34,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('admin.items.create', [
+        return view('admin.barang.create', [
             'categories'=>Kategori::all(),
         ]);
     }
@@ -46,19 +49,36 @@ class BarangController extends Controller
     {
 
         $rules = [
-            'id_barang' => 'required|unique:barang',
-            'nama_barang' => 'required',
-            'harga_beli' => 'required',
-            'id_kategori' => 'required',
-            'stok' => 'required',
+            'id_barang'     => 'required|unique:barang_dijual',
+            'nama_barang'   => 'required',
+            'harga_beli'    => 'required',
+            'id_kategori'   => 'required',
+            'stok'          => 'required',
         ];
+
         $validatedData = $request->validate($rules);
         $validatedData['harga_jual'] = 0;
 
+        $rekap = [
+            'tgl'           => Carbon::now(),
+            'id_barang'     => $validatedData['id_barang'],
+            'barang_masuk'  => $request->stok,
+            'id_admin'      => auth()->user()->id,
+        ];
 
-//        dd($validatedData['id_barang']);
+        //create barang baru jika belum pernah dijual
+        $barang = Barang::where('id_barang', $validatedData['id_barang'])->first();
 
-        Barang::create($validatedData);
+//        dd($barang);
+        if ($barang==null){
+            Barang::create($validatedData);
+        }
+        elseif ($barang->id_barang == $request->id_barang){
+            $barang->update($validatedData);
+        }
+
+        BarangDijual::create($validatedData);
+        RekapBarang::create($rekap);
 
         return redirect('/admin/barang')->with('success','Data Barang Berhasil Ditambahkan');
     }
@@ -66,12 +86,12 @@ class BarangController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  \App\Models\BarangDijual  $barang
      * @return \Illuminate\Http\Response
      */
-    public function show(Barang $barang)
+    public function show(BarangDijual $barang)
     {
-        return view('admin.items.show', [
+        return view('admin.barang.show', [
             'item' => $barang
         ]);
     }
@@ -79,12 +99,12 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  \App\Models\BarangDijual  $barang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Barang $barang)
+    public function edit(BarangDijual $barang)
     {
-        return view('/admin.items.edit', [
+        return view('/admin.barang.edit', [
             'barang' => $barang,
             'categories' => Kategori::all()
         ]);
@@ -94,10 +114,10 @@ class BarangController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Barang  $barang
+     * @param  \App\Models\BarangDijual  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request, BarangDijual $barang)
     {
         $rules = [
             'nama_barang'   => 'required',
@@ -109,8 +129,20 @@ class BarangController extends Controller
         $validatedData['id_barang'] = $barang->id_barang;
         $validatedData['stok']      = $barang->stok + $request->stok;
 
+
+        $rekap = [
+            'tgl'           => Carbon::now(),
+            'id_barang'     => $validatedData['id_barang'],
+            'barang_masuk'  => $request->stok,
+            'id_admin'      => auth()->user()->id,
+        ];
+
+        BarangDijual::where('id_barang', $barang->id_barang)
+            ->update($validatedData);
         Barang::where('id_barang', $barang->id_barang)
             ->update($validatedData);
+        RekapBarang::create($rekap);
+
 
         return redirect('/admin/barang')->with('success','Data Barang Berhasil Diubah');
     }
@@ -118,74 +150,17 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  \App\Models\BarangDijual  $barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barang $barang)
+    public function destroy(BarangDijual $barang)
     {
-        $id = Barang::where('id_barang', $barang->id_barang);
+        $id = BarangDijual::where('id_barang', $barang->id_barang);
+        $barang = Barang::where('id_barang', $barang->id_barang);
+        $barang->update(['stok'=>0]);
         $id->delete();
 
         return redirect('/admin/barang')->with('success','Data Barang Berhasil Dihapus');
 
     }
-
-//    public function items()
-//    {
-//        return view('pemilik.items.index', [
-//            'items' => Barang::latest()->filter(request(['search']))->get()
-//        ]);
-//    }
-//
-//    public function showPemilik($id)
-//    {
-//        $item = Barang::where('id_barang', $id)->first();
-////        return ($item->id_barang);
-//        return view('pemilik.items.show', [
-//            'item' => $item
-//        ]);
-//    }
-//
-//    public function editPemilik($id)
-//    {
-//        $item = Barang::where('id_barang', $id)->first();
-////        return $item->nama_barang;
-//
-//        return view('/pemilik.items.edit', [
-//            'item' => $item,
-//            'categories' => Kategori::all()
-//        ]);
-//    }
-//
-//    public function updatePemilik(Request $request, Barang $item)
-//    {
-////        return $request;
-//
-//        $rules = [
-//            'id_barang'     => 'required',
-//            'nama_barang'   => 'required',
-//            'harga_beli'    => 'required|min:2',
-//            'harga_jual'    => 'required|min:2',
-//            'stok'          => 'required',
-//            'category_id'   => 'required',
-//        ];
-//
-//        $validatedData = $request->validate($rules);
-//
-////        $validatedData['user_id'] = auth()->user()->id;
-//
-//        Barang::where('id_barang', $request->id_barang)
-//            ->update($validatedData);
-//
-//        return redirect('/pemilik/items')->with('success','Data Barang Berhasil Diubah');
-//    }
-//
-//    public function delete($id)
-//    {
-//        $item = Barang::where('id_barang', $id)->first();
-////        return $item->nama_barang;
-//
-//        Barang::destroy($item->id);
-//        return redirect('/pemilik/items')->with('success','Data Barang Berhasil Dihapus');
-//    }
 }

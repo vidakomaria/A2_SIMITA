@@ -15,10 +15,10 @@ class CreateDetailPenjualanTable extends Migration
     {
         Schema::create('detail_penjualan', function (Blueprint $table) {
             $table->id();
-//            $table->foreignId('id_penjualan')->constrained('penjualan', 'id_penjualan');
-            $table->integer('id_penjualan');
-//            $table->foreignId('id_barang')->constrained('barang','id_barang');
-            $table->integer('id_barang');
+            $table->foreignId('id_penjualan')->constrained('penjualan', 'id_penjualan');
+//            $table->integer('id_penjualan');
+            $table->foreignId('id_barang')->constrained('barang','id_barang');
+//            $table->integer('id_barang');
             $table->integer('quantity');
             $table->integer('total');
             $table->timestamps();

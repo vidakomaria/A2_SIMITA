@@ -11,7 +11,7 @@
             @csrf
             <div class="col-5">
                 <label for="id_barang" class="form-label">ID Barang</label>
-                <select name="id_barang"  wire:model="id_barang" class="form-select  @error('id_barang') is-invalid @enderror" >
+                <select name="id_barang" wire:model="id_barang" class="form-select  @error('id_barang') is-invalid @enderror" >
                     <option value=""></option>
                     @foreach($items as $item)
                         <option value="{{ $item->id_barang }}">{{ $item->id_barang . '  ' . $item->nama_barang }}</option>
@@ -74,20 +74,27 @@
                     <td colspan="3" ></td>
                     <td style="border-style:hidden">Total</td>
                     <td colspan="2">
-{{--                        <input wire:model="total" hidden name="total" value="{{ ($transactions->sum('sub_total')) }}" class="@error ('total') is-invalid @enderror">--}}
-                        : Rp. {{ number_format($transactions->sum('sub_total')) }}
+                        Rp. {{ number_format($transactions->sum('sub_total')) }}
                     </td>
                 </tr>
                 <tr style="border-style:hidden">
                     <td colspan="3" ></td>
                     <td style="border-style:hidden">Bayar : </td>
                     <td colspan="2">
-                        <input type="number" wire:model="bayar" class="form-control width-auto @error ('bayar') is-invalid @enderror" required style="height: 34px; width:80%">
-                        @error('bayar')
-                        <div class="invalid-feedback">
-                            {{ $message }}
+                        <div class="row align-center">
+                            <div class="col-1 mt-1" style="margin-right: 4px">Rp.</div>
+                            <div class="col m-0 p-0">
+                                <input type="number" wire:model="bayar"
+                                       class="form-control width-auto @error ('bayar') is-invalid @enderror" id="bayar"
+                                       style="height: 34px; width:80%; margin-left: 3px">
+
+                                @error('bayar')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
                         </div>
-                        @enderror
                     </td>
                 </tr>
                 <tr >
@@ -95,12 +102,6 @@
                     <td style="border-style:hidden">Kembali : </td>
                     <td colspan="2">
                         Rp. {{ number_format($bayar - ($transactions->sum('sub_total'))) }}
-{{--                        <input hidden wire:model="kembalian" value="{{ number_format($bayar - ($transactions->sum('sub_total'))) }}" class="@error ('kembalian') is-invalid @enderror">--}}
-{{--                        @error('kembalian')--}}
-{{--                        <div class="invalid-feedback">--}}
-{{--                            {{ 'Pembayaran harus lebih daripada Total' }}--}}
-{{--                        </div>--}}
-{{--                        @enderror--}}
                     </td>
                 </tr>
             </tfoot>
@@ -124,13 +125,15 @@
                     <h5>Apakah anda ingin mencetak?</h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" wire:click="nota" target="_blank" class="btn btn-orange">IYA</button>
+                    <button type="button" wire:click="nota" class="btn btn-orange">IYA</button>
                     <button type="button" wire:click="noNota" class="btn btn-green-cetak" data-bs-dismiss="modal">TIDAK</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 @push('scripts')

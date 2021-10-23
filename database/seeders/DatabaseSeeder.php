@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\User;
+use Database\Factories\BarangFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
 //         \App\Models\User::factory(10)->create();
 
         User::create([
-            'nama'=>'Nama Karyawan',
+            'nama'=>'Fatimah',
             'username'=>'Admin',
             'password'=>bcrypt('admin123'),
             'role'=>'karyawan',
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'nama'=>'Nama Pemilik UD Mitra Tani',
+            'nama'=>'Bapak Sunardi',
             'username'=>'Pemilik',
             'password'=>bcrypt('owner123'),
             'role'=>'pemilik',
@@ -36,16 +37,14 @@ class DatabaseSeeder extends Seeder
 
 
 
-        Kategori::create([
-            'nama_kategori' => 'Pupuk'
-        ]);
-        Kategori::create([
-            'nama_kategori' => 'Benih'
-        ]);
-        Kategori::create([
-            'nama_kategori' => 'Obat'
-        ]);
+//        Kategori::create([
+//            'nama_kategori' => 'benih bibit tanaman'
+//        ]);
 
-        Barang::factory(10)->create();
+//        Barang::factory(10)->create();
+        $this->call([
+            KategoriSeeder::class,
+            BarangSeeder::class,
+            ]);
     }
 }

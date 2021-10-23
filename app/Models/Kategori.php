@@ -11,7 +11,12 @@ class Kategori extends Model
 
     protected $table = "kategori";
 
-    public $guarded = [];
+//    public $guarded = [];
+
+    protected $fillable =[
+      'id_kategori',
+      'nama_kategori',
+    ];
 
     public function barang()
     {
