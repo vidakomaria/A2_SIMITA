@@ -36,12 +36,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-
-//        Kategori::create([
-//            'nama_kategori' => 'benih bibit tanaman'
-//        ]);
-
-//        Barang::factory(10)->create();
         $this->call([
             KategoriSeeder::class,
             BarangSeeder::class,

@@ -17,31 +17,20 @@ class RekapPenjualanController extends Controller
         return view('admin.rekap.penjualan.index');
     }
 
-    public function adminRekap(Request $request)
-    {
-        $rekap = RekapPenjualan::with('detailPenjualan')
-            ->whereDate('tgl','<=',$request->tglAkhir)
-            ->whereDate('tgl', '>=', $request->tglAwal)
-            ->paginate(10)->withQueryString();
-
-//        dd ($rekap[0]->detailPenjualan[0]->barang->nama_barang);
-
-
-        return view('admin.rekap.penjualan.hasil_rekap',[
-            'rekap'     => $rekap,
-            'tglAwal'   => $request->tglAwal,
-            'tglAkhir'  => $request->tglAkhir,
-        ]);
-
-//        $this->redirect('/admin/penjualan/nota/'.$id_penjualan);
-    }
-
     public function adminDetail($id_penjualan)
     {
         $detail = DetailPenjualan::where('id_penjualan', $id_penjualan)->get();
+        $harga_jual = 0;
+        $harga_beli = 0;
+        foreach ($detail as $value){
+            $harga_jual = $value->barang->harga_jual * $value->quantity + $harga_jual;
+            $harga_beli = $value->barang->harga_beli * $value->quantity + $harga_beli;
+    }
+
         return view('admin.rekap.penjualan.detail',[
             'detail'        => $detail,
             'id_transaksi'  => $id_penjualan,
+            'keuntungan'    => $harga_jual-$harga_beli,
         ]);
     }
 
@@ -92,9 +81,17 @@ class RekapPenjualanController extends Controller
     public function pemilikDetail($id_penjualan)
     {
         $detail = DetailPenjualan::where('id_penjualan', $id_penjualan)->get();
+        $harga_jual = 0;
+        $harga_beli = 0;
+        foreach ($detail as $value){
+            $harga_jual = $value->barang->harga_jual * $value->quantity + $harga_jual;
+            $harga_beli = $value->barang->harga_beli * $value->quantity + $harga_beli;
+        }
+
         return view('pemilik.rekap.penjualan.detail',[
             'detail'        => $detail,
             'id_transaksi'  => $id_penjualan,
+            'keuntungan'    => $harga_jual-$harga_beli,
         ]);
     }
 

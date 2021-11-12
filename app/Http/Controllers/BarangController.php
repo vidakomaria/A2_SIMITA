@@ -135,13 +135,17 @@ class BarangController extends Controller
             'id_barang'     => $validatedData['id_barang'],
             'barang_masuk'  => $request->stok,
             'id_admin'      => auth()->user()->id,
+            'total_barang'  => $validatedData['stok'],
         ];
 
         BarangDijual::where('id_barang', $barang->id_barang)
             ->update($validatedData);
         Barang::where('id_barang', $barang->id_barang)
             ->update($validatedData);
-        RekapBarang::create($rekap);
+
+        if ($request->stok != 0){
+            RekapBarang::create($rekap);
+        }
 
 
         return redirect('/admin/barang')->with('success','Data Barang Berhasil Diubah');

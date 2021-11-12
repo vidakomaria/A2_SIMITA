@@ -19,26 +19,21 @@
                     <i class="bi bi-folder2"></i>  Data Penjualan</a>
             </li>
 
-            <li class="nav-item">
-                <button class="nav-link border-0 text-white sidebar-btn"
-                        data-bs-toggle="collapse" data-bs-target="#dataRekap">
+            <li class="nav-item" id="rekap">
+                <button class="nav-link border-0 text-white sidebar-btn" type="" data-bs-toggle="collapse" data-bs-target="#dataRekap">
                     <i class="bi bi-server"></i> Data Rekap</button>
                 <div class="collapse" id="dataRekap">
                     <ul class="text-white" style="list-style-type:none;">
-                        <li>
-                            <a href="/admin/rekap/barang" class="nav-link text-white {{ Request::is('admin/rekap/barang*') ? 'active' : '' }}">
-                                <i class="bi bi-check2"></i> Rekap Barang</a>
-                        </li>
-                        <li>
-                            <a href="/admin/rekap/penjualan" class="nav-link text-white {{ Request::is('admin/rekap/penjualan*') ? 'active' : '' }}">
-                                <i class="bi bi-check2"></i> Rekap Penjualan</a>
-                        </li>
+                        <li><a href="/admin/rekap/barang" class="nav-link text-white {{ Request::is('pemilik/rekap/barang*') ? 'active' : '' }}">
+                                <i class="bi bi-check2"></i>  Rekap Barang</a></li>
+                        <li><a href="/admin/rekap/penjualan" class="nav-link text-white {{ Request::is('pemilik/rekap/penjualan*') ? 'active' : '' }}">
+                                <i class="bi bi-check2"></i>  Rekap Penjualan</a></li>
                     </ul>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link text-white {{ Request::is('pemilik/prediction') ? 'active' : '' }}">
+                <a href="/admin/prediksi" class="nav-link text-white {{ Request::is('admin/prediksi') ? 'active' : '' }}">
                     <i class="bi bi-file-earmark-bar-graph"></i>  Prediksi</a>
             </li>
 

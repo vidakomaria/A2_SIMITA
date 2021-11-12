@@ -9,8 +9,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangPemilikController;
 use App\Http\Controllers\RekapBarangController;
 use App\Http\Controllers\RekapPenjualanController;
-
-//use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ForecastingController;
 
 
 
@@ -89,3 +88,7 @@ Route::get('pemilik/rekap/penjualan/rekap', [RekapPenjualanController::class, 'p
 Route::get('pemilik/rekap/penjualan/detail/{id_penjualan}', [RekapPenjualanController::class, 'pemilikDetail']);
 Route::get('pemilik/rekap/penjualan/print/{tglAwal}/{tglAkhir}', [RekapPenjualanController::class, 'pemilikPrint']);
 Route::get('pemilik/rekap/penjualan/print/{id_penjualan}', [RekapPenjualanController::class, 'pemilikPrintDetail']);
+
+//prediksi
+Route::get('admin/prediksi', [ForecastingController::class, 'index']);
+Route::get('admin/prediksi/chekForecast', [ForecastingController::class, 'checkForecast']);

@@ -63,6 +63,54 @@ class BarangSeeder extends Seeder
             'stok'          =>385,
             'id_kategori'   =>2,
         ]);
+        Barang::create([
+            'id_barang'     =>129873,
+            'nama_barang'   =>'Benih Semangka Amara F1',
+            'harga_jual'    =>165000,
+            'harga_beli'    =>150000,
+            'stok'          =>200,
+            'id_kategori'   =>1,
+        ]);
+        Barang::create([
+            'id_barang'     =>432676,
+            'nama_barang'   =>'Benih Sawi Pahit MAJAPAHIT 25GRAM',
+            'harga_jual'    =>15000,
+            'harga_beli'    =>13000,
+            'stok'          =>250,
+            'id_kategori'   =>1,
+        ]);
+        Barang::create([
+            'id_barang'     =>563752,
+            'nama_barang'   =>'Benih Kacang Panjang Parade Tavi 200 Butir',
+            'harga_jual'    =>10000,
+            'harga_beli'    =>9000,
+            'stok'          =>450,
+            'id_kategori'   =>1,
+        ]);
+        Barang::create([
+            'id_barang'     =>837901,
+            'nama_barang'   =>'Benih Kangkung BANGKOK LP-1',
+            'harga_jual'    =>11000,
+            'harga_beli'    =>9500,
+            'stok'          =>480,
+            'id_kategori'   =>1,
+        ]);
+        Barang::create([
+            'id_barang'     =>598713,
+            'nama_barang'   =>'Benih Tomat KARUNA 10 Gram',
+            'harga_jual'    =>11000,
+            'harga_beli'    =>9500,
+            'stok'          =>500,
+            'id_kategori'   =>1,
+        ]);
+        Barang::create([
+            'id_barang'     =>687596,
+            'nama_barang'   =>'Benih Selada Hijau GRAND RAPIDS',
+            'harga_jual'    =>25000,
+            'harga_beli'    =>22500,
+            'stok'          =>380,
+            'id_kategori'   =>1,
+        ]);
 
         //Barang Dijual//
 
@@ -113,6 +161,54 @@ class BarangSeeder extends Seeder
             'harga_beli'    =>43000,
             'stok'          =>385,
             'id_kategori'   =>2,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>129873,
+            'nama_barang'   =>'Benih Semangka Amara F1',
+            'harga_jual'    =>165000,
+            'harga_beli'    =>150000,
+            'stok'          =>200,
+            'id_kategori'   =>1,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>432676,
+            'nama_barang'   =>'Benih Sawi Pahit MAJAPAHIT 25GRAM',
+            'harga_jual'    =>15000,
+            'harga_beli'    =>13000,
+            'stok'          =>250,
+            'id_kategori'   =>1,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>563752,
+            'nama_barang'   =>'Benih Kacang Panjang Parade Tavi 200 Butir',
+            'harga_jual'    =>10000,
+            'harga_beli'    =>9000,
+            'stok'          =>450,
+            'id_kategori'   =>1,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>837901,
+            'nama_barang'   =>'Benih Kangkung BANGKOK LP-1',
+            'harga_jual'    =>11000,
+            'harga_beli'    =>9500,
+            'stok'          =>480,
+            'id_kategori'   =>1,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>598713,
+            'nama_barang'   =>'Benih Tomat KARUNA 10 Gram',
+            'harga_jual'    =>11000,
+            'harga_beli'    =>9500,
+            'stok'          =>500,
+            'id_kategori'   =>1,
+        ]);
+        BarangDijual::create([
+            'id_barang'     =>687596,
+            'nama_barang'   =>'Benih Selada Hijau GRAND RAPIDS',
+            'harga_jual'    =>25000,
+            'harga_beli'    =>22500,
+            'stok'          =>380,
+            'id_kategori'   =>1,
         ]);
     }
 }

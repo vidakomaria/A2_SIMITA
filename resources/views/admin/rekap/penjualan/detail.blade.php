@@ -1,4 +1,4 @@
-@extends('pemilik.layouts.main')
+@extends('admin.layouts.main')
 
 @section('container')
     <div id="modalListBrg" >
@@ -36,7 +36,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#print"
-                            style="width: 100px">
+                    style="width: 100px">
                         <i class="bi bi-printer"></i>  Cetak
                     </button>
                     <a href="javascript: window.history.back();"><button class="btn btn-close-detail">Tutup</button></a>
@@ -53,7 +53,7 @@
                     <h5>Apakah anda ingin mencetak?</h5>
                 </div>
                 <div class="modal-footer">
-                    <a href="/pemilik/rekap/penjualan/print/{{ $id_transaksi }}" target="_blank"><button class="btn btn-orange" data-bs-dismiss="modal">IYA</button></a>
+                    <a href="/admin/penjualan/nota/{{ $id_transaksi }}" target="_blank"><button class="btn btn-orange" data-bs-dismiss="modal">IYA</button></a>
                     <button type="button" class="btn btn-green-cetak" data-bs-dismiss="modal">TIDAK</button>
                 </div>
             </div>

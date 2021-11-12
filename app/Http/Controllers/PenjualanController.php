@@ -16,7 +16,7 @@ class PenjualanController extends Controller
     {
         $penjualan = Penjualan::with('detailPenjualan')
         ->where('id_penjualan',$id_penjualan)->first();
-        return view('admin.penjualan.nota',[
+        return view('admin.penjualan.cetakPenjualan',[
             'penjualan' => $penjualan,
         ]);
     }
