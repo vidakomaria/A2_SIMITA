@@ -1,0 +1,47 @@
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.sidebar{
+    background-color: #02734A;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100%;
+}
+.logo{
+    width: 130px;
+    /*align-content: center;*/
+}
+.bi {
+    vertical-align: -.125em;
+    pointer-events: none;
+    fill: currentColor;
+}
+.sidebar-btn, .sidebar a:hover, .sidebar-btn:hover{
+    background-color: #003e2a;
+    color: white;
+}
+
+.sidebar a:active, .sidebar-btn:active{
+    color: #003e2a;
+}
+
+.nav-link.active {
+     background-color: #003e2a;
+}
+
+.sidebar-btn{
+    background-color: transparent;
+    color: white ;
+    width: 100%;
+}
+.nav-item{
+    padding-top: 0.5rem;
+}
+
+

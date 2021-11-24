@@ -11,7 +11,7 @@ class RekapBarangController extends Controller
 
     public function index()
     {
-        return view('admin.rekap.barang.index');
+        return view('Rekap.barang.index');
     }
 
     public function rekap(Request $request)
@@ -27,44 +27,14 @@ class RekapBarangController extends Controller
         ]);
     }
 
-    public function print($tglAwal, $tglAkhir)
+    public function cetak($tglAwal, $tglAkhir)
     {
         $rekap = RekapBarang::whereDate('tgl','>=',$tglAwal)
             ->whereDate('tgl','<=', $tglAkhir)->get();
 
         $admin = Auth::user()->nama;
 
-        return view('admin.rekap.barang.cetak',[
-            'prints'    => $rekap,
-            'admin'     => $admin,
-        ]);
-    }
-
-    public function pemilikIndex()
-    {
-        return view('pemilik.rekap.barang.index');
-    }
-
-    public function pemilikRekap(Request $request)
-    {
-        $rekap = RekapBarang::whereDate('tgl','>=',$request->tglAwal)
-            ->whereDate('tgl','<=', $request->tglAkhir)
-            ->paginate(10)->withQueryString();
-        return view('pemilik.rekap.barang.rekap',[
-            'rekaps'    =>$rekap,
-            'tglAwal'   =>$request->tglAwal,
-            'tglAkhir'  =>$request->tglAkhir,
-        ]);
-    }
-
-    public function pemilikPrint($tglAwal, $tglAkhir)
-    {
-        $rekap = RekapBarang::whereDate('tgl','>=',$tglAwal)
-            ->whereDate('tgl','<=', $tglAkhir)->get();
-
-        $admin = Auth::user()->nama;
-
-        return view('pemilik.rekap.barang.cetak',[
+        return view('Cetak.cetakRekapBarang',[
             'prints'    => $rekap,
             'admin'     => $admin,
         ]);

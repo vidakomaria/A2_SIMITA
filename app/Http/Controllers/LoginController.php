@@ -12,6 +12,7 @@ class LoginController extends Controller
         return view('login.index');
     }
 
+    //data login
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([

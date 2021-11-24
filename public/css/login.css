@@ -2,23 +2,25 @@ html,
 body {
     height: 100%;
 }
-
 body {
     display: flex;
     align-items: center;
     /*padding-top: 40px;*/
     /*padding-bottom: 40px;*/
+    background-image: url("/image/bg_login.jpg");
+    background-repeat: repeat;
+    background-position: center;
+    /*background-size:cover ;*/
 }
-
 .form-signin {
     width: 100%;
-    padding: 35px;
     padding-left: 4rem;
     padding-right: 4rem;
     margin: auto;
     align-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
-
 
 .form-signin .form-floating:focus-within {
     z-index: 2;
@@ -34,24 +36,24 @@ body {
     margin-bottom: 20pt;
     border-radius: 9px;
     height: 40pt;
-
 }
 
 .form-container{
-    width: 50%;
+    width: 40%;
     border-radius: 10pt;
-
+    height: 80%;
+    background-color: rgba(242, 236, 228, 0.8);
 }
 
 .button {
-    background-color: #31B410;
+    background-color: #02734A;
     color: white;
     margin-top: 15pt;
     border-radius: 9pt;
 }
 
 .button:hover {
-    background-color: rgba(49,180,16, 0.85);
+    background-color: rgb(1, 76, 50);
     color: white;
 }
 
